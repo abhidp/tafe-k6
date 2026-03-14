@@ -1,5 +1,3 @@
-// Page Object: TAFE NSW Home Page (tafensw.edu.au)
-
 const SELECTORS = {
   searchInput: 'input[id="homePageSearch"]',
   searchButton: '[aria-label="Submit search"]'
@@ -25,7 +23,10 @@ export class HomePage {
 
     const button = this.page.locator(SELECTORS.searchButton)
     await Promise.all([
-      this.page.waitForNavigation({ waitUntil: 'networkidle', timeout: this.config.timeouts.search }),
+      this.page.waitForNavigation({
+        waitUntil: 'networkidle',
+        timeout: this.config.timeouts.search
+      }),
       button.first().click()
     ])
   }

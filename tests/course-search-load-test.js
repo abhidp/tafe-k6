@@ -55,6 +55,7 @@ export default async function () {
   try {
     // Navigate and search
     const homePage = new HomePage(page, config)
+    const resultsPage = new SearchResultsPage(page, config)
     await homePage.navigate()
 
     const startTime = Date.now()
@@ -64,12 +65,11 @@ export default async function () {
     searchDuration.add(elapsed)
     logger.setSearchTime(elapsed)
 
-    // Wait for filtered results and assert
-    const resultsPage = new SearchResultsPage(page, config)
+    // Verify results heading is visible after search
     let headingVisible = false
 
     try {
-      await resultsPage.waitForFilteredResults()
+      await resultsPage.waitForResults()
       headingVisible = true
       logger.setResults(await resultsPage.getResultsHeadingText())
     } catch {

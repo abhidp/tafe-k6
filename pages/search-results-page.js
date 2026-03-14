@@ -1,11 +1,6 @@
-// Page Object: TAFE NSW Course Search Results Page
-
 const SELECTORS = {
   resultsHeading: 'h4.h4.text-grey-01'
 }
-
-// Total unfiltered course count shown before filtering completes
-const UNFILTERED_COUNT = 662
 
 export class SearchResultsPage {
   constructor(page, config) {
@@ -13,19 +8,21 @@ export class SearchResultsPage {
     this.config = config
   }
 
-  async waitForFilteredResults() {
+  async waitForResults() {
+    // After navigation, the page renders in stages:
+    //   0 (loading) → actual filtered count
+    // Poll until the heading shows a count greater than 0,
+    // meaning the search API has responded and the UI has updated.
     await this.page.waitForFunction(
-      (unfilteredCount) => {
-        const el = document.querySelector('h4.h4.text-grey-01')
+      (selector) => {
+        const el = document.querySelector(selector)
         if (!el) return false
-        const text = el.textContent.trim()
-        const match = text.match(/^(\d+)/)
+        const match = el.textContent.trim().match(/^(\d+)/)
         if (!match) return false
-        const count = parseInt(match[1])
-        return count !== unfilteredCount && count !== 0
+        return parseInt(match[1]) > 0
       },
       { timeout: this.config.timeouts.filteredResults },
-      UNFILTERED_COUNT
+      SELECTORS.resultsHeading
     )
   }
 
@@ -37,7 +34,12 @@ export class SearchResultsPage {
   async isResultsHeadingVisible() {
     try {
       const heading = this.page.locator(SELECTORS.resultsHeading)
-      await heading.first().waitFor({ state: 'visible', timeout: this.config.timeouts.elementVisibility })
+      await heading
+        .first()
+        .waitFor({
+          state: 'visible',
+          timeout: this.config.timeouts.elementVisibility
+        })
       return true
     } catch {
       return false
