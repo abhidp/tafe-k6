@@ -21,7 +21,7 @@ export class HomePage {
   async searchForCourse(courseName) {
     const input = this.page.locator(SELECTORS.searchInput)
     await input.first().click()
-    await input.first().type(courseName, { delay: 0 })
+    await input.first().type(courseName, { delay: 50 })
 
     const button = this.page.locator(SELECTORS.searchButton)
     await Promise.all([

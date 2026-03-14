@@ -2,14 +2,15 @@ import { browser } from 'k6/browser'
 import { check } from 'k6'
 import { Trend, Counter } from 'k6/metrics'
 import { SharedArray } from 'k6/data'
-import { HomePage } from './pages/home-page.js'
-import { SearchResultsPage } from './pages/search-results-page.js'
-import { VULogger } from './utils/logger.js'
+import { HomePage } from '../pages/home-page.js'
+import { SearchResultsPage } from '../pages/search-results-page.js'
+import { VULogger } from '../utils/logger.js'
+import { generateReport } from '../utils/reporting.js'
 
-const config = JSON.parse(open('./config.json'))
+const config = JSON.parse(open('../config.json'))
 
 const courses = new SharedArray('courses', function () {
-  return JSON.parse(open('data/courses.json'))
+  return JSON.parse(open('../data/courses.json'))
 })
 
 // Custom metrics
@@ -39,6 +40,10 @@ export const options = {
     ],
     assertions_passed: ['count>0']
   }
+}
+
+export function handleSummary(data) {
+  return generateReport(data)
 }
 
 export default async function () {
