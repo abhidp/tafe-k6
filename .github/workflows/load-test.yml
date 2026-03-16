@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # Necessary to push the report to the gh-pages branch
+  contents: write
 
 jobs:
   load-test:
@@ -22,12 +22,10 @@ jobs:
         env:
           K6_BROWSER_ENABLED: 'true'
 
-      # Deploy the report to GitHub Pages
-      - name: Deploy to GitHub Pages
+      - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
           publish_files: index.html
-          # rename: index.html
