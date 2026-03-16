@@ -4,7 +4,7 @@ Simulates 5 concurrent browser users searching for courses on [tafensw.edu.au](h
 
 ## Deployment Status
 
-[![GitHub Pages](https://github.com/abhidp/tafe-k6/actions/workflows/pages.yml/badge.svg)](https://github.com/abhidp/tafe-k6/actions/workflows/pages.yml)
+[![GitHub Pages](https://github.com/abhidp/tafe-k6/actions/workflows/load-test.yml/badge.svg)](https://github.com/abhidp/tafe-k6/actions/workflows/load-test.yml)
 [![Load Test Results](https://img.shields.io/badge/results-latest-blue)](https://abhidp.github.io/tafe-k6/)
 
 A Report is available at [https://abhidp.github.io/tafe-k6/](https://abhidp.github.io/tafe-k6/) (deployed via GitHub Actions on every run)
