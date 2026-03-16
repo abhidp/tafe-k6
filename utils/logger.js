@@ -1,16 +1,7 @@
-export class VULogger {
-  constructor(vu, course) {
-    this.d = { vu, course }
-  }
-
-  setSearchTime(ms) { this.d.search = `${ms}ms` }
-  setResults(text) { this.d.results = text }
-  setAssertion(passed) { this.d.assert = passed ? 'PASS' : 'FAIL' }
-  setFCP(ms) { this.d.fcp = `${ms.toFixed(0)}ms` }
-  setLCP(ms) { this.d.lcp = `${ms.toFixed(0)}ms` }
-
-  flush() {
-    const d = this.d
-    console.log(`VU ${d.vu} | course: ${d.course} | search: ${d.search} | ${d.results} | assertion: ${d.assert} | FCP: ${d.fcp || 'N/A'} | LCP: ${d.lcp || 'N/A'}`)
-  }
+// just for debuggin and logging locally and demo purposes - not needed for production
+export function logVU({ vu, course, searchMs, results, passed, fcp, lcp }) {
+  const fmt = (ms) => (ms != null ? `${Math.round(ms)}ms` : 'N/A')
+  console.log(
+    `VU ${vu} | course: ${course} | search: ${fmt(searchMs)} | ${results} | assertion: ${passed ? 'PASS' : 'FAIL'} | FCP: ${fmt(fcp)} | LCP: ${fmt(lcp)}`
+  )
 }

@@ -2,6 +2,13 @@
 
 Simulates 5 concurrent browser users searching for courses on [tafensw.edu.au](https://www.tafensw.edu.au) using k6 browser module.
 
+## Deployment Status
+
+[![GitHub Pages](https://github.com/abhidp/tafe-k6/actions/workflows/pages.yml/badge.svg)](https://github.com/abhidp/tafe-k6/actions/workflows/pages.yml)
+[![Load Test Results](https://img.shields.io/badge/results-latest-blue)](https://abhidp.github.io/tafe-k6/)
+
+A Report is available at [https://abhidp.github.io/tafe-k6/](https://abhidp.github.io/tafe-k6/) (deployed via GitHub Actions on every run)
+
 ## Prerequisites
 
 - [k6](https://grafana.com/docs/k6/latest/set-up/install-k6/) v0.46+
@@ -10,17 +17,17 @@ Simulates 5 concurrent browser users searching for courses on [tafensw.edu.au](h
 ## Project Structure
 
 ```
-├── config.json                        # URLs, timeouts, thresholds
-├── data/courses.json                  # Test data (5 course names)
+├── config.json
+├── data/courses.json
 ├── pages/
-│   ├── home-page.js                   # Homepage page object
-│   └── search-results-page.js         # Search results page object
+│   ├── home-page.js
+│   └── search-results-page.js
 ├── utils/
-│   ├── logger.js                      # VU summary logger
-│   └── reporting.js                   # HTML report generation
-├── tests/
-│   └── course-search-load-test.js     # Main test script
-└── CODE-EXPLAINED.md                  # Detailed code walkthrough
+│   ├── logger.js
+│   └── reporting.js
+└── tests/
+    └── course-search-load-test.js
+
 ```
 
 ## Running
@@ -46,13 +53,12 @@ A GitHub Actions workflow runs the load test on demand and publishes the HTML re
 ### Running the workflow manually
 
 1. Go to the **Actions** tab in the GitHub repository
-2. Select **TAFE NSW Course Search Load Test** from the left panel under *All workflows*
+2. Select **TAFE NSW Course Search Load Test** from the left panel under _All workflows_
 3. Click the **Run workflow** dropdown
 4. Select **Branch: main**
 5. Click **Run workflow**
 
 After the run completes, the report is deployed to GitHub Pages automatically at [https://abhidp.github.io/tafe-k6/](https://abhidp.github.io/tafe-k6/)
-
 
 ## What It Does
 
@@ -63,12 +69,12 @@ After the run completes, the report is deployed to GitHub Pages automatically at
 
 ## Metrics
 
-| Metric | Description |
-|---|---|
-| `search_duration` | Search submit to results loaded (p90, p95, avg) |
-| `assertions_passed/failed` | Pass/fail count for UI assertion |
-| `web_vital_fcp` | First Contentful Paint |
-| `web_vital_lcp` | Largest Contentful Paint |
+| Metric                     | Description                                     |
+| -------------------------- | ----------------------------------------------- |
+| `search_duration`          | Search submit to results loaded (p90, p95, avg) |
+| `assertions_passed/failed` | Pass/fail count for UI assertion                |
+| `web_vital_fcp`            | First Contentful Paint                          |
+| `web_vital_lcp`            | Largest Contentful Paint                        |
 
 ## Thresholds
 

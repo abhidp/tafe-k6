@@ -9,6 +9,7 @@ export class SearchResultsPage {
   }
 
   async waitForResults() {
+    // poll until the heading shows a non-zero result count (e.g. "42 results for Accounting")
     await this.page.waitForFunction(
       (selector) => {
         const el = document.querySelector(selector)
