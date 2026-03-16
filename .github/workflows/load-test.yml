@@ -22,10 +22,13 @@ jobs:
         env:
           K6_BROWSER_ENABLED: 'true'
 
+      - name: Prepare report for deployment
+        if: always()
+        run: mkdir -p gh-pages-dist && cp index.html gh-pages-dist/
+
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          publish_files: index.html
+          publish_dir: ./gh-pages-dist
