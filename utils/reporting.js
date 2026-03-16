@@ -16,7 +16,7 @@ function patchBrowserMetrics(data) {
 export function generateReport(data) {
   patchBrowserMetrics(data)
   return {
-    'report.html': htmlReport(data, { title: `TAFE NSW - Course Search Load Test Report : ${new Date().toLocaleString()}` }),
+    'index.html': htmlReport(data, { title: `TAFE NSW - Course Search Load Test Report : ${new Date().toLocaleString()}` }),
     stdout: textSummary(data, { indent: ' ', enableColors: true })
   }
 }
