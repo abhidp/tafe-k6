@@ -29,5 +29,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
-          publish_files: report.html
-          rename: index.html
+          publish_files: index.html
+          # rename: index.html
