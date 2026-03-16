@@ -37,7 +37,15 @@ $env:K6_BROWSER_HEADLESS="false"
 k6 run tests/course-search-load-test.js
 ```
 
-After the run, open `report.html` for a shareable HTML report.
+After the run, open `index.html` for a shareable HTML report.
+
+## CI/CD
+
+A GitHub Actions workflow runs the load test on demand and publishes the HTML report to GitHub Pages.
+
+1. Go to **Actions** → **TAFE NSW Course Search Load Test** → **Run workflow**
+2. After the run, the report is deployed to GitHub Pages automatically
+3. Enable GitHub Pages (Settings → Pages → Source: **Deploy from a branch** → Branch: `gh-pages`) to view the report at [https://abhidp.github.io/tafe-k6/](https://abhidp.github.io/tafe-k6/)
 
 ## What It Does
 
