@@ -1,0 +1,17 @@
+{
+  "baseUrl": "https://www.tafensw.edu.au",
+  "timeouts": {
+    "navigation": 60000,
+    "search": 30000,
+    "filteredResults": 15000,
+    "elementVisibility": 5000
+  },
+  "scenarios": {
+    "vus": 5,
+    "iterations": 1
+  },
+  "thresholds": {
+    "searchDurationP90": 15000,
+    "searchDurationP95": 20000
+  }
+}
