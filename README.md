@@ -43,9 +43,16 @@ After the run, open `index.html` for a shareable HTML report.
 
 A GitHub Actions workflow runs the load test on demand and publishes the HTML report to GitHub Pages.
 
-1. Go to **Actions** → **TAFE NSW Course Search Load Test** → **Run workflow**
-2. After the run, the report is deployed to GitHub Pages automatically
-3. Enable GitHub Pages (Settings → Pages → Source: **Deploy from a branch** → Branch: `gh-pages`) to view the report at [https://abhidp.github.io/tafe-k6/](https://abhidp.github.io/tafe-k6/)
+### Running the workflow manually
+
+1. Go to the **Actions** tab in the GitHub repository
+2. Select **TAFE NSW Course Search Load Test** from the left panel under *All workflows*
+3. Click the **Run workflow** dropdown
+4. Select **Branch: main**
+5. Click **Run workflow**
+
+After the run completes, the report is deployed to GitHub Pages automatically at [https://abhidp.github.io/tafe-k6/](https://abhidp.github.io/tafe-k6/)
+
 
 ## What It Does
 
