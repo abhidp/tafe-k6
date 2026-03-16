@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # Necessary to push the report to the gh-pages branch
+  contents: write # Necessary to push the report to the gh-pages branch
 
 jobs:
   load-test:
@@ -20,7 +20,7 @@ jobs:
       - name: Run load test for TAFE NSW Course Search
         run: k6 run tests/course-search-load-test.js
         env:
-          K6_BROWSER_ENABLED: "true"
+          K6_BROWSER_ENABLED: 'true'
 
       # Deploy the report to GitHub Pages
       - name: Deploy to GitHub Pages
@@ -29,5 +29,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
-          destination_dir: reports/${{ github.run_id }} # Keeps a history of reports
           publish_files: report.html
+          rename: index.html
