@@ -1,0 +1,33 @@
+name: TAFE NSW Course Search Load Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Necessary to push the report to the gh-pages branch
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup k6 with browser
+        uses: grafana/setup-k6-action@v1
+        with:
+          browser: true
+
+      - name: Run load test for TAFE NSW Course Search
+        run: k6 run tests/course-search-load-test.js
+        env:
+          K6_BROWSER_ENABLED: "true"
+
+      # Deploy the report to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          destination_dir: reports/${{ github.run_id }} # Keeps a history of reports
+          publish_files: report.html

@@ -1,0 +1,30 @@
+name: TAFE NSW Course Search Load Test
+
+on:
+  workflow_dispatch:
+  # push:               # Uncomment if you want auto-run on push
+  #   branches: [main]
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup k6 with browser
+        uses: grafana/setup-k6-action@v1
+        with:
+          browser: true
+
+      - name: Run load test for TAFE NSW Course Search
+        run: k6 run tests/course-search-load-test.js
+        env:
+          K6_BROWSER_ENABLED: "true"
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: TAFE-NSW-course-search-load-test-report
+          path: report.html
+          retention-days: 30

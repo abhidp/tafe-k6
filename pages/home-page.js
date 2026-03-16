@@ -23,10 +23,7 @@ export class HomePage {
 
     const button = this.page.locator(SELECTORS.searchButton)
     await Promise.all([
-      this.page.waitForNavigation({
-        waitUntil: 'networkidle',
-        timeout: this.config.timeouts.search
-      }),
+      this.page.waitForNavigation({ waitUntil: 'networkidle', timeout: this.config.timeouts.search }),
       button.first().click()
     ])
   }

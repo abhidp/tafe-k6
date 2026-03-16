@@ -9,17 +9,12 @@ export class SearchResultsPage {
   }
 
   async waitForResults() {
-    // After navigation, the page renders in stages:
-    //   0 (loading) → actual filtered count
-    // Poll until the heading shows a count greater than 0,
-    // meaning the search API has responded and the UI has updated.
     await this.page.waitForFunction(
       (selector) => {
         const el = document.querySelector(selector)
         if (!el) return false
         const match = el.textContent.trim().match(/^(\d+)/)
-        if (!match) return false
-        return parseInt(match[1]) > 0
+        return match && parseInt(match[1]) > 0
       },
       { timeout: this.config.timeouts.filteredResults },
       SELECTORS.resultsHeading
@@ -27,19 +22,15 @@ export class SearchResultsPage {
   }
 
   async getResultsHeadingText() {
-    const heading = this.page.locator(SELECTORS.resultsHeading)
-    return await heading.first().textContent()
+    return await this.page.locator(SELECTORS.resultsHeading).first().textContent()
   }
 
   async isResultsHeadingVisible() {
     try {
-      const heading = this.page.locator(SELECTORS.resultsHeading)
-      await heading
-        .first()
-        .waitFor({
-          state: 'visible',
-          timeout: this.config.timeouts.elementVisibility
-        })
+      await this.page.locator(SELECTORS.resultsHeading).first().waitFor({
+        state: 'visible',
+        timeout: this.config.timeouts.elementVisibility
+      })
       return true
     } catch {
       return false
@@ -48,13 +39,11 @@ export class SearchResultsPage {
 
   async getWebVitals() {
     return await this.page.evaluate(() => {
-      const entries = performance.getEntriesByType('paint')
-      const fcp = entries.find((e) => e.name === 'first-contentful-paint')
-      const navEntries = performance.getEntriesByType('navigation')
-      const lcp = navEntries.length > 0 ? navEntries[0].loadEventEnd : null
+      const fcp = performance.getEntriesByType('paint').find((e) => e.name === 'first-contentful-paint')
+      const nav = performance.getEntriesByType('navigation')
       return {
         fcp: fcp ? fcp.startTime : null,
-        lcp: lcp
+        lcp: nav.length > 0 ? nav[0].loadEventEnd : null
       }
     })
   }
